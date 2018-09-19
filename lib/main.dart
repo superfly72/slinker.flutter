@@ -4,6 +4,11 @@ import 'package:flutter_app/Slink.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'package:uni_links/uni_links.dart';
+import 'package:flutter/services.dart' show PlatformException;
+
+enum UniLinksType { string, uri }
+
 
 class BlackbookItemList extends StatefulWidget{
 
@@ -48,6 +53,19 @@ class BlackbookItemState extends State<BlackbookItemList> {
 }
 
 class BlackbookList extends StatefulWidget {
+
+  Future<Null> initUniLinks() async {
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      String initialLink = await getInitialLink();
+      // Parse the link and warn the user, if it is not correct,
+      // but keep in mind it could be `null`.
+    } on PlatformException {
+      // Handle exception by warning the user their action did not succeed
+      // return?
+    }
+  }
+
   BlackbookList({Key key, this.blackbookList}) :super(key: key);
 
   List<Blackbook> blackbookList;
